@@ -9,17 +9,19 @@
     </head>
 
     <body>
-        <h1><a href="index.jsp">Tópicos</a></h1>
+        <h1><a href="topicos">Tópicos</a></h1>
         <h2>Tópico</h2>
     <c:if test="${mensagem != null && !mensagem.isBlank()}">
         <h3>${mensagem}</h3>
     </c:if>
     <div><label for="nome">Titulo:</label></div>
-    <div><input type="text" name="titulo" id="titulo"></div>
+    <div>${topico.titulo}</div>
+    <hr>
     <div>Conteúdo:</div>
-    <div><textarea type="text" name="conteudo" id="conteudo"></textarea></div>
+    <div>${topico.conteudo}</div>
+    <hr>
     <div>Usuário</div>
-    <div><input type="submit" value="Salvar"></div>
+    <div>${topico.login}</div>
 </body>
 
 </html>
