@@ -1,15 +1,12 @@
 package org.coursera.ita.control;
 
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import org.coursera.ita.base.UsuarioBase;
-import org.coursera.ita.model.Topico;
 import org.coursera.ita.model.Usuario;
 
 @WebServlet("/cadastrar")

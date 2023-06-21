@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.coursera.ita.model.Comentario;
 
 public class ComentarioBase implements Closeable {
@@ -31,7 +33,7 @@ public class ComentarioBase implements Closeable {
 
     public Comentario recuperar(int id) throws Exception {
         PreparedStatement stm = connection
-                .prepareStatement("SELECT comentario, login, id_topico FROM topico WHERE id_comentario = ?");
+                .prepareStatement("SELECT comentario, login, id_topico FROM comentario WHERE id_comentario = ?");
         stm.setInt(1, id);
         ResultSet rst = stm.executeQuery();
         if (rst.next()) {
@@ -44,6 +46,25 @@ public class ComentarioBase implements Closeable {
         } else {
             return null;
         }
+    }
+    
+    
+
+    public List<Comentario> listar(int idTopico) throws Exception {
+        PreparedStatement stm = connection
+                .prepareStatement("SELECT id_comentario, comentario, login FROM comentario WHERE id_topico = ?");
+        stm.setInt(1, idTopico);
+        ResultSet rst = stm.executeQuery();
+        List<Comentario> result = new ArrayList<>();
+        while (rst.next()) {
+            Comentario c = new Comentario();
+            c.setId(rst.getInt("id_comentario"));
+            c.setComentario(rst.getString("comentario"));
+            c.setLogin(rst.getString("login"));
+            c.setIdTopico(idTopico);
+            result.add(c);
+        }
+        return result;
     }
 
     @Override

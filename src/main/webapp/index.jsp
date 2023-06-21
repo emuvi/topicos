@@ -25,7 +25,7 @@
                     </tr>
                     <tr>
                         <td><label for="senha">Senha:</label></td>
-                        <td><input type="text" name="senha" id="senha"></td>
+                        <td><input type="password" name="senha" id="senha"></td>
                     </tr>
                     <tr>
                         <td></td>

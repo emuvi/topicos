@@ -7,29 +7,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.coursera.ita.base.ComentarioBase;
-import org.coursera.ita.base.TopicoBase;
+import org.coursera.ita.model.Comentario;
 import org.coursera.ita.model.Usuario;
 
-@WebServlet("/topico")
-public class TopicoControl extends HttpServlet {
+@WebServlet("/comentar")
+public class ComentarControl extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Usuario logado = (Usuario) req.getSession().getAttribute("logado");
             if (logado == null) {
-                throw new Exception("Você deve estar logado para ver um tópico.");
+                throw new Exception("Você deve estar logado para criar um tópico.");
+            }
+            String comentario = req.getParameter("comentario");
+            if (comentario == null || comentario.isBlank()) {
+                throw new Exception("Você deve preencher o comentário.");
             }
             String id = req.getParameter("id");
             if (id == null || id.isBlank()) {
                 throw new Exception("Você deve passar o id do tópico.");
             }
-            req.setAttribute("topico", new TopicoBase().recuperar(Integer.parseInt(id)));
-            req.setAttribute("comentarios", new ComentarioBase().listar(Integer.parseInt(id)));
-            getServletContext().getRequestDispatcher("/topico.jsp").forward(req, resp);
+            new ComentarioBase().inserir(new Comentario(null, comentario, logado.getLogin(), Integer.parseInt(id)));
+            resp.sendRedirect("topico?id=" + id);
         } catch (Exception e) {
             req.setAttribute("mensagem", e.getMessage());
-            getServletContext().getRequestDispatcher("/topicos").forward(req, resp);
+            getServletContext().getRequestDispatcher("/topico").forward(req, resp);
         }
     }
 

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+<html>
 
     <head>
         <meta charset="UTF-8">
@@ -22,6 +23,25 @@
     <hr>
     <div>Usuário</div>
     <div>${topico.login}</div>
+    <hr>
+    <table>
+        <tr>
+            <td>Comentário</td>
+            <td>Usuário</td>
+        </tr>
+        <c:forEach var="c" items="${comentarios}">
+            <tr>
+                <td>${c.comentario}</td>
+                <td>${c.login}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <hr>
+    <form action="comentar" method="post">
+        <input type="hidden" name="id" id="id" value="${topico.id}" />
+        <textarea name="comentario" id="comentario" ></textarea>
+        <input type="submit" value="Comentar" />
+    </form>
 </body>
 
 </html>
