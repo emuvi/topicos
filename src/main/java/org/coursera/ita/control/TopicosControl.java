@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.coursera.ita.base.TopicoBase;
+import org.coursera.ita.data.TopicoData;
 import org.coursera.ita.model.Topico;
 import org.coursera.ita.model.Usuario;
 
@@ -22,7 +22,7 @@ public class TopicosControl extends HttpServlet {
             if (logado == null) {
                 throw new Exception("Você deve estar logado para listar os tópicos.");
             }
-            List<Topico> topicos = new TopicoBase().listar();
+            List<Topico> topicos = new TopicoData().listar();
             req.setAttribute("topicos", topicos);
             getServletContext().getRequestDispatcher("/topicos.jsp").forward(req, resp);
         } catch (Exception e) {

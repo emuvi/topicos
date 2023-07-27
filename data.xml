@@ -3,4 +3,15 @@
 	<USUARIO LOGIN="joao" NOME="Joao" EMAIL="joao@mail.com" SENHA="jjj" PONTOS="3" />
 	<USUARIO LOGIN="maria" NOME="Maria" EMAIL="maria@mail.com" SENHA="mmm" PONTOS="9" />
 	<USUARIO LOGIN="jose" NOME="Jose" EMAIL="jose@mail.com" SENHA="sss" PONTOS="6" />
+        
+        <TOPICO ID_TOPICO="1" TITULO="As baleias jubarte" CONTEUDO="As baleias jubartes são grandes" LOGIN="joao" />
+        <TOPICO ID_TOPICO="2" TITULO="Os pinguins imperadores" CONTEUDO="Os pinguins imperadores gostam de governar" LOGIN="maria" />
+        <TOPICO ID_TOPICO="3" TITULO="As preguiças da cidade" CONTEUDO="As preguiças da cidade gostam de dormir" LOGIN="jose" />
+        
+        <COMENTARIO ID_COMENTARIO="1" COMENTARIO="As baleias são lindas" LOGIN="maria" ID_TOPICO="1" />
+        <COMENTARIO ID_COMENTARIO="2" COMENTARIO="As baleias comem peixes" LOGIN="jose" ID_TOPICO="1" />
+        <COMENTARIO ID_COMENTARIO="3" COMENTARIO="Os pinguins são maneiros" LOGIN="joao" ID_TOPICO="2" />
+        <COMENTARIO ID_COMENTARIO="4" COMENTARIO="Os pinguins gostam de nadar" LOGIN="jose" ID_TOPICO="2" />
+        <COMENTARIO ID_COMENTARIO="5" COMENTARIO="KKKKK, eu conenho algumas" LOGIN="joao" ID_TOPICO="3" />
+        <COMENTARIO ID_COMENTARIO="6" COMENTARIO="Aí que pegadinha falar isso" LOGIN="maria" ID_TOPICO="3" />
 </dataset>

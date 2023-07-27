@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.coursera.ita.base.UsuarioBase;
+import org.coursera.ita.data.UsuarioData;
 import org.coursera.ita.model.Usuario;
 
 @WebServlet("/login")
@@ -20,7 +20,7 @@ public class LoginControl extends HttpServlet {
             if (login == null || login.isBlank() || senha == null || senha.isBlank()) {
                 throw new Exception("Você precisa preencher o login e senha.");
             }
-            Usuario usuario = new UsuarioBase().recuperar(login);
+            Usuario usuario = new UsuarioData().recuperar(login);
             if (usuario == null || !senha.equals(usuario.getSenha())) {
                 throw new Exception("Usuário e/ou senha não encontrados.");
             }

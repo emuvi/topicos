@@ -1,4 +1,4 @@
-package org.coursera.ita.base;
+package org.coursera.ita.data;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.coursera.ita.model.Comentario;
 
-public class ComentarioBase implements Closeable {
+public class ComentarioData implements Closeable {
 
     private final Connection connection;
 
-    public ComentarioBase() throws Exception {
-        this.connection = Base.nova();
+    public ComentarioData() throws Exception {
+        this.connection = Acesso.novo();
     }
 
-    public ComentarioBase(Connection connection) throws Exception {
+    public ComentarioData(Connection connection) throws Exception {
         this.connection = connection;
     }
 

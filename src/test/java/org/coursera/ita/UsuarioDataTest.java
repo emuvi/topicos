@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.List;
-import org.coursera.ita.base.Base;
-import org.coursera.ita.base.UsuarioBase;
+import org.coursera.ita.data.Acesso;
+import org.coursera.ita.data.UsuarioData;
 import org.coursera.ita.model.Usuario;
 
 import org.dbunit.JdbcDatabaseTester;
@@ -13,15 +13,15 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UsuarioBaseTest {
+public class UsuarioDataTest {
 
-    UsuarioBase usuarioBase;
+    UsuarioData usuarioBase;
     JdbcDatabaseTester jdt;
 
     @Before
     public void setUp() throws Exception {
-        usuarioBase = new UsuarioBase();
-        jdt = new JdbcDatabaseTester(Base.driver, Base.caminho, Base.usuario, Base.senha);
+        usuarioBase = new UsuarioData();
+        jdt = new JdbcDatabaseTester(Acesso.driver, Acesso.caminho, Acesso.usuario, Acesso.senha);
         FlatXmlDataSet data = new FlatXmlDataSet(new File("data.xml"));
         jdt.setDataSet(data);
         jdt.onSetup();

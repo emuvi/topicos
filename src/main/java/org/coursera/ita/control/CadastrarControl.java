@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.coursera.ita.base.UsuarioBase;
+import org.coursera.ita.data.UsuarioData;
 import org.coursera.ita.model.Usuario;
 
 @WebServlet("/cadastrar")
@@ -38,7 +38,7 @@ public class CadastrarControl extends HttpServlet {
             if (!senha.equals(confirma)) {
                 throw new Exception("A senha e a confirmação precisam ser iguai.");
             }
-            new UsuarioBase().inserir(new Usuario(login, email, nome, senha, 0));
+            new UsuarioData().inserir(new Usuario(login, email, nome, senha, 0));
             req.setAttribute("mensagem", "Cadastro realizado com sucesso.");
             getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } catch (Exception e) {

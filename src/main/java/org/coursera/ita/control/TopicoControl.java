@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.coursera.ita.base.ComentarioBase;
-import org.coursera.ita.base.TopicoBase;
+import org.coursera.ita.data.ComentarioData;
+import org.coursera.ita.data.TopicoData;
 import org.coursera.ita.model.Usuario;
 
 @WebServlet("/topico")
@@ -24,8 +24,8 @@ public class TopicoControl extends HttpServlet {
             if (id == null || id.isBlank()) {
                 throw new Exception("Você deve passar o id do tópico.");
             }
-            req.setAttribute("topico", new TopicoBase().recuperar(Integer.parseInt(id)));
-            req.setAttribute("comentarios", new ComentarioBase().listar(Integer.parseInt(id)));
+            req.setAttribute("topico", new TopicoData().recuperar(Integer.parseInt(id)));
+            req.setAttribute("comentarios", new ComentarioData().listar(Integer.parseInt(id)));
             getServletContext().getRequestDispatcher("/topico.jsp").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("mensagem", e.getMessage());

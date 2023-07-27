@@ -1,4 +1,4 @@
-package org.coursera.ita.base;
+package org.coursera.ita.data;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -10,15 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioBase implements Closeable {
+public class UsuarioData implements Closeable {
 
     private final Connection connection;
 
-    public UsuarioBase() throws Exception {
-        this.connection = Base.nova();
+    public UsuarioData() throws Exception {
+        this.connection = Acesso.novo();
     }
 
-    public UsuarioBase(Connection connection) throws Exception {
+    public UsuarioData(Connection connection) throws Exception {
         this.connection = connection;
     }
 

@@ -1,4 +1,4 @@
-package org.coursera.ita.base;
+package org.coursera.ita.data;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.coursera.ita.model.Topico;
 
-public class TopicoBase implements Closeable {
+public class TopicoData implements Closeable {
 
     private final Connection connection;
 
-    public TopicoBase() throws Exception {
-        this.connection = Base.nova();
+    public TopicoData() throws Exception {
+        this.connection = Acesso.novo();
     }
 
-    public TopicoBase(Connection connection) throws Exception {
+    public TopicoData(Connection connection) throws Exception {
         this.connection = connection;
     }
 

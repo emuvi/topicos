@@ -1,9 +1,9 @@
-package org.coursera.ita.base;
+package org.coursera.ita.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Base {
+public class Acesso {
 
     public static String driver;
     public static String caminho;
@@ -22,7 +22,7 @@ public class Base {
         }
     }
 
-    public static Connection nova() throws Exception {
+    public static Connection novo() throws Exception {
         return DriverManager.getConnection(caminho, usuario, senha);
     }
 

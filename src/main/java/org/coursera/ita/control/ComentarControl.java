@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.coursera.ita.base.ComentarioBase;
+import org.coursera.ita.data.ComentarioData;
 import org.coursera.ita.model.Comentario;
 import org.coursera.ita.model.Usuario;
 
@@ -28,7 +28,7 @@ public class ComentarControl extends HttpServlet {
             if (id == null || id.isBlank()) {
                 throw new Exception("Você deve passar o id do tópico.");
             }
-            new ComentarioBase().inserir(new Comentario(null, comentario, logado.getLogin(), Integer.parseInt(id)));
+            new ComentarioData().inserir(new Comentario(null, comentario, logado.getLogin(), Integer.parseInt(id)));
             resp.sendRedirect("topico?id=" + id);
         } catch (Exception e) {
             req.setAttribute("mensagem", e.getMessage());
