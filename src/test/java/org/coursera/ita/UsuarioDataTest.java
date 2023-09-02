@@ -15,12 +15,12 @@ import org.junit.Test;
 
 public class UsuarioDataTest {
 
-    UsuarioData usuarioBase;
+    UsuarioData usuarioData;
     JdbcDatabaseTester jdt;
 
     @Before
     public void setUp() throws Exception {
-        usuarioBase = new UsuarioData();
+        usuarioData = new UsuarioData();
         jdt = new JdbcDatabaseTester(Acesso.driver, Acesso.caminho, Acesso.usuario, Acesso.senha);
         FlatXmlDataSet data = new FlatXmlDataSet(new File("data.xml"));
         jdt.setDataSet(data);
@@ -34,8 +34,8 @@ public class UsuarioDataTest {
         novo.setNome("Novo Login");
         novo.setEmail("novo-email@domain.com");
         novo.setPontos(5);
-        usuarioBase.inserir(novo);
-        Usuario inserido = usuarioBase.recuperar("novo-login");
+        usuarioData.inserir(novo);
+        Usuario inserido = usuarioData.recuperar("novo-login");
         assertEquals(inserido.getLogin(), "novo-login");
         assertEquals(inserido.getNome(), "Novo Login");
         assertEquals(inserido.getEmail(), "novo-email@domain.com");
@@ -44,7 +44,7 @@ public class UsuarioDataTest {
 
     @Test
     public void testaRecuperar() throws Exception {
-        Usuario antigo = usuarioBase.recuperar("jose");
+        Usuario antigo = usuarioData.recuperar("jose");
         assertEquals(antigo.getLogin(), "jose");
         assertEquals(antigo.getNome(), "Jose");
         assertEquals(antigo.getEmail(), "jose@mail.com");
@@ -53,14 +53,14 @@ public class UsuarioDataTest {
 
     @Test
     public void testaAdicionarPontos() throws Exception {
-        usuarioBase.adicionarPontos("jose", 4);
-        Usuario adicionado = usuarioBase.recuperar("jose");
+        usuarioData.adicionarPontos("jose", 4);
+        Usuario adicionado = usuarioData.recuperar("jose");
         assertEquals(adicionado.getPontos(), (Integer) 10);
     }
 
     @Test
     public void testaRanking() throws Exception {
-        List<Usuario> ranking = usuarioBase.ranking();
+        List<Usuario> ranking = usuarioData.ranking();
         assertEquals(ranking.get(0).getLogin(), "maria");
         assertEquals(ranking.get(1).getLogin(), "jose");
         assertEquals(ranking.get(2).getLogin(), "joao");
