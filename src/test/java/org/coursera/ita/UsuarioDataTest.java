@@ -1,31 +1,12 @@
 package org.coursera.ita;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
 import java.util.List;
-import org.coursera.ita.data.Acesso;
 import org.coursera.ita.data.UsuarioData;
 import org.coursera.ita.model.Usuario;
-
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class UsuarioDataTest {
-
-    UsuarioData usuarioData;
-    JdbcDatabaseTester jdt;
-
-    @Before
-    public void setUp() throws Exception {
-        usuarioData = new UsuarioData();
-        jdt = new JdbcDatabaseTester(Acesso.driver, Acesso.caminho, Acesso.usuario, Acesso.senha);
-        FlatXmlDataSet data = new FlatXmlDataSet(new File("data.xml"));
-        jdt.setDataSet(data);
-        jdt.onSetup();
-    }
 
     @Test
     public void testaInserir() throws Exception {
@@ -34,17 +15,19 @@ public class UsuarioDataTest {
         novo.setNome("Novo Login");
         novo.setEmail("novo-email@domain.com");
         novo.setPontos(5);
-        usuarioData.inserir(novo);
-        Usuario inserido = usuarioData.recuperar("novo-login");
+        UsuarioData.get().inserir(novo);
+        Usuario inserido = UsuarioData.get().recuperar("novo-login");
         assertEquals(inserido.getLogin(), "novo-login");
         assertEquals(inserido.getNome(), "Novo Login");
         assertEquals(inserido.getEmail(), "novo-email@domain.com");
         assertEquals(inserido.getPontos(), (Integer) 5);
+
     }
 
     @Test
     public void testaRecuperar() throws Exception {
-        Usuario antigo = usuarioData.recuperar("jose");
+        UsuarioData.get().criarMassaDeTeste();
+        Usuario antigo = UsuarioData.get().recuperar("jose");
         assertEquals(antigo.getLogin(), "jose");
         assertEquals(antigo.getNome(), "Jose");
         assertEquals(antigo.getEmail(), "jose@mail.com");
@@ -53,17 +36,18 @@ public class UsuarioDataTest {
 
     @Test
     public void testaAdicionarPontos() throws Exception {
-        usuarioData.adicionarPontos("jose", 4);
-        Usuario adicionado = usuarioData.recuperar("jose");
+        UsuarioData.get().criarMassaDeTeste();
+        UsuarioData.get().adicionarPontos("jose", 4);
+        Usuario adicionado = UsuarioData.get().recuperar("jose");
         assertEquals(adicionado.getPontos(), (Integer) 10);
     }
 
     @Test
     public void testaRanking() throws Exception {
-        List<Usuario> ranking = usuarioData.ranking();
+        UsuarioData.get().criarMassaDeTeste();
+        List<Usuario> ranking = UsuarioData.get().ranking();
         assertEquals(ranking.get(0).getLogin(), "maria");
         assertEquals(ranking.get(1).getLogin(), "jose");
         assertEquals(ranking.get(2).getLogin(), "joao");
     }
-
 }

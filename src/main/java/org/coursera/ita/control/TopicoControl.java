@@ -24,8 +24,8 @@ public class TopicoControl extends HttpServlet {
             if (id == null || id.isBlank()) {
                 throw new Exception("Você deve passar o id do tópico.");
             }
-            req.setAttribute("topico", new TopicoData().recuperar(Integer.parseInt(id)));
-            req.setAttribute("comentarios", new ComentarioData().listar(Integer.parseInt(id)));
+            req.setAttribute("topico", TopicoData.get().recuperar(Integer.parseInt(id)));
+            req.setAttribute("comentarios", ComentarioData.get().listar(Integer.parseInt(id)));
             getServletContext().getRequestDispatcher("/topico.jsp").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("mensagem", e.getMessage());

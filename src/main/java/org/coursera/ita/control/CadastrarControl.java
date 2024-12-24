@@ -40,7 +40,7 @@ public class CadastrarControl extends HttpServlet {
 			if (!senha.equals(confirma)) {
 				throw new Exception("A senha e a confirmação precisam ser iguai.");
 			}
-			new UsuarioData().inserir(new Usuario(login, email, nome, senha, 0));
+			UsuarioData.get().inserir(new Usuario(login, email, nome, senha, 0));
 			req.setAttribute("mensagem", "Cadastro realizado com sucesso.");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
 		} catch (Exception e) {

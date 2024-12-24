@@ -28,7 +28,7 @@ public class ComentarControl extends HttpServlet {
             if (id == null || id.isBlank()) {
                 throw new Exception("Você deve passar o id do tópico.");
             }
-            new ComentarioData().inserir(new Comentario(null, comentario, logado.getLogin(), Integer.parseInt(id)));
+            ComentarioData.get().inserir(new Comentario(null, comentario, logado.getLogin(), Integer.parseInt(id)));
             resp.sendRedirect("topico?id=" + id);
         } catch (Exception e) {
             req.setAttribute("mensagem", e.getMessage());

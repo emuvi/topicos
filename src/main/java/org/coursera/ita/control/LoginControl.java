@@ -20,7 +20,7 @@ public class LoginControl extends HttpServlet {
             if (login == null || login.isBlank() || senha == null || senha.isBlank()) {
                 throw new Exception("Você precisa preencher o login e senha.");
             }
-            Usuario usuario = new UsuarioData().recuperar(login);
+            Usuario usuario = UsuarioData.get().recuperar(login);
             if (usuario == null || !senha.equals(usuario.getSenha())) {
                 throw new Exception("Usuário e/ou senha não encontrados.");
             }

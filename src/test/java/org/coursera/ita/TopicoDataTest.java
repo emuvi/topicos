@@ -1,30 +1,13 @@
 package org.coursera.ita;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import org.coursera.ita.data.Acesso;
 import org.coursera.ita.data.TopicoData;
+import org.coursera.ita.data.UsuarioData;
 import org.coursera.ita.model.Topico;
-
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class TopicoDataTest {
-
-    TopicoData topicoData;
-    JdbcDatabaseTester jdt;
-
-    @Before
-    public void setUp() throws Exception {
-        topicoData = new TopicoData();
-        jdt = new JdbcDatabaseTester(Acesso.driver, Acesso.caminho, Acesso.usuario, Acesso.senha);
-        FlatXmlDataSet data = new FlatXmlDataSet(new File("data.xml"));
-        jdt.setDataSet(data);
-        jdt.onSetup();
-    }
 
     @Test
     public void testaInserir() throws Exception {
@@ -32,12 +15,16 @@ public class TopicoDataTest {
         novo.setTitulo("Novo Tópico");
         novo.setConteudo("este é um novo tópico");
         novo.setLogin("joao");
-        topicoData.inserir(novo);
+        UsuarioData.get().criarMassaDeTeste();
+        TopicoData.get().inserir(novo);
+        var recuperado = TopicoData.get().recuperar(1);
+        assertNotNull(recuperado);
     }
 
     @Test
     public void testaRecuperar() throws Exception {
-        Topico topico = topicoData.recuperar(1);
+        TopicoData.get().criarMassaDeTeste();
+        Topico topico = TopicoData.get().recuperar(1);
         assertEquals(topico.getTitulo(), "As baleias jubarte");
         assertEquals(topico.getConteudo(), "As baleias jubartes são grandes");
         assertEquals(topico.getLogin(), "joao");

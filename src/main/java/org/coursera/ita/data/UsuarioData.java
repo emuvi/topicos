@@ -1,25 +1,24 @@
 package org.coursera.ita.data;
 
-import java.io.Closeable;
-import java.io.IOException;
 import org.coursera.ita.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioData implements Closeable {
+public class UsuarioData {
 
+    private final static UsuarioData DATA = new UsuarioData();
+    
+    public static UsuarioData get() {
+        return DATA;
+    }
+    
     private final Connection connection;
 
-    public UsuarioData() throws Exception {
-        this.connection = Acesso.novo();
-    }
-
-    public UsuarioData(Connection connection) throws Exception {
-        this.connection = connection;
+    private UsuarioData() {
+        this.connection = Acesso.acessar();
     }
 
     public void inserir(Usuario u) throws Exception {
@@ -74,13 +73,16 @@ public class UsuarioData implements Closeable {
         return usuarios;
     }
 
-    @Override
-    public void close() throws IOException {
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            throw new IOException(ex);
+    private volatile boolean massaTesteCriada = false;
+    
+    public synchronized void criarMassaDeTeste() throws Exception {
+        if (massaTesteCriada) {
+            return;
         }
+        inserir(new Usuario("joao", "joao@mail.com", "Joao", "jjj", 3));
+        inserir(new Usuario("maria", "maria@mail.com", "Maria", "mmm", 9));
+        inserir(new Usuario("jose", "jose@mail.com", "Jose", "sss", 6));
+        massaTesteCriada = true;
     }
 
 }

@@ -28,7 +28,7 @@ public class TopicarControl extends HttpServlet {
             if (conteudo == null || conteudo.isBlank()) {
                 throw new Exception("Você deve preencher o conteúdo.");
             }
-            new TopicoData().inserir(new Topico(null, titulo, conteudo, logado.getLogin()));
+            TopicoData.get().inserir(new Topico(null, titulo, conteudo, logado.getLogin()));
             req.setAttribute("mensagem", "Novo tópico salvo com sucesso.");
             resp.sendRedirect(req.getContextPath() + "/topicos");
         } catch (Exception e) {

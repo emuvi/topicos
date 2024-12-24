@@ -1,25 +1,24 @@
 package org.coursera.ita.data;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.coursera.ita.model.Topico;
 
-public class TopicoData implements Closeable {
+public class TopicoData {
+
+    private final static TopicoData DATA = new TopicoData();
+
+    public static TopicoData get() {
+        return DATA;
+    }
 
     private final Connection connection;
 
-    public TopicoData() throws Exception {
-        this.connection = Acesso.novo();
-    }
-
-    public TopicoData(Connection connection) throws Exception {
-        this.connection = connection;
+    private TopicoData() {
+        this.connection = Acesso.acessar();
     }
 
     public void inserir(Topico t) throws Exception {
@@ -64,13 +63,17 @@ public class TopicoData implements Closeable {
         return result;
     }
 
-    @Override
-    public void close() throws IOException {
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            throw new IOException(ex);
+    private volatile boolean massaTesteCriada = false;
+
+    public synchronized void criarMassaDeTeste() throws Exception {
+        if (massaTesteCriada) {
+            return;
         }
+        UsuarioData.get().criarMassaDeTeste();
+        inserir(new Topico(1, "As baleias jubarte", "As baleias jubartes são grandes", "joao"));
+        inserir(new Topico(2, "Os pinguins imperadores", "Os pinguins imperadores gostam de governar", "maria"));
+        inserir(new Topico(3, "As preguiças da cidade", "As preguiças da cidade gostam de dormir", "jose"));
+        massaTesteCriada = true;
     }
 
 }

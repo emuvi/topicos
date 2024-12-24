@@ -22,7 +22,7 @@ public class TopicosControl extends HttpServlet {
             if (logado == null) {
                 throw new Exception("Você deve estar logado para listar os tópicos.");
             }
-            List<Topico> topicos = new TopicoData().listar();
+            List<Topico> topicos = TopicoData.get().listar();
             req.setAttribute("topicos", topicos);
             getServletContext().getRequestDispatcher("/topicos.jsp").forward(req, resp);
         } catch (Exception e) {
